@@ -209,10 +209,10 @@ class FamilyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final members = [
-      ('Maman', 'Marie Kabeya', 'Commerçante', 'assets/family/marie.svg'),
-      ('Papa', 'Jean Kabeya', 'Entrepreneur', 'assets/family/jean.svg'),
-      ('Sœur', 'Naomi Kabeya', 'Étudiante', 'assets/family/naomi.svg'),
-      ('Frère', 'David Kabeya', 'Ingénieur', 'assets/family/david.svg'),
+      ('Maman', 'Marie Kabeya', 'Commerçante', 'assets/family/marie.svg', 'M'),
+      ('Papa', 'Jean Kabeya', 'Entrepreneur', 'assets/family/jean.svg', 'J'),
+      ('Sœur', 'Naomi Kabeya', 'Étudiante', 'assets/family/naomi.svg', 'N'),
+      ('Frère', 'David Kabeya', 'Ingénieur', 'assets/family/david.svg', 'D'),
     ];
     return _page(
       'MON CERCLE',
@@ -234,7 +234,7 @@ class FamilyPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-                    leading: ClipRRect(borderRadius: BorderRadius.circular(18), child: SvgPicture.asset(f.$4, width: 52, height: 52, fit: BoxFit.cover)),
+                    leading: _FamilyAvatar(asset: f.$4, initials: f.$5),
                     title: Text(f.$2, style: const TextStyle(color: ink, fontWeight: FontWeight.w800)),
                     subtitle: Text('${f.$1} · ${f.$3}', style: const TextStyle(color: muted)),
                     trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15, color: copper),
@@ -242,6 +242,35 @@ class FamilyPage extends StatelessWidget {
                 )),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _FamilyAvatar extends StatelessWidget {
+  final String asset;
+  final String initials;
+  const _FamilyAvatar({required this.asset, required this.initials});
+
+  @override
+  Widget build(BuildContext context) {
+    Widget fallback(BuildContext context) => Container(
+          width: 52,
+          height: 52,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: copperLight, borderRadius: BorderRadius.circular(18)),
+          child: Text(initials, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800)),
+        );
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(18),
+      child: SvgPicture.asset(
+        asset,
+        width: 52,
+        height: 52,
+        fit: BoxFit.cover,
+        placeholderBuilder: fallback,
+        errorBuilder: (context, error, stackTrace) => fallback(context),
       ),
     );
   }
