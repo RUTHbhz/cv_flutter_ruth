@@ -1,6 +1,6 @@
 # cv_flutter_ruth
 
-Application mobile Flutter présentant le profil professionnel, la famille et les coordonnées de Ruth Kabeya.
+Application mobile Flutter présentant le profil professionnel, la famille et les coordonnées de Ruth Bwiza Bahizi.
 
 ## Direction artistique
 
@@ -11,8 +11,8 @@ Interface éditoriale, sobre et chaleureuse : encre `#0D1011`, papier `#F4F9FC` 
 ### Connexion
 ![Écran de connexion](screenshots/01-login.svg)
 
-### Profil / CV
-![Écran profil](screenshots/02-profile.svg)
+### Accueil / CV
+![Écran Accueil](screenshots/02-profile.svg)
 
 ### Famille
 ![Écran famille](screenshots/03-family.svg)
