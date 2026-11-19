@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const ink = Color(0xFF0D1011);
@@ -208,10 +209,10 @@ class FamilyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final members = [
-      ('Maman', 'Marie Kabeya', 'Commerçante', 'M'),
-      ('Papa', 'Jean Kabeya', 'Entrepreneur', 'J'),
-      ('Sœur', 'Naomi Kabeya', 'Étudiante', 'N'),
-      ('Frère', 'David Kabeya', 'Ingénieur', 'D'),
+      ('Maman', 'Marie Kabeya', 'Commerçante', 'assets/family/marie.svg'),
+      ('Papa', 'Jean Kabeya', 'Entrepreneur', 'assets/family/jean.svg'),
+      ('Sœur', 'Naomi Kabeya', 'Étudiante', 'assets/family/naomi.svg'),
+      ('Frère', 'David Kabeya', 'Ingénieur', 'assets/family/david.svg'),
     ];
     return _page(
       'MON CERCLE',
@@ -233,7 +234,7 @@ class FamilyPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
-                    leading: CircleAvatar(radius: 26, backgroundColor: copperLight, child: Text(f.$4, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800))),
+                    leading: ClipRRect(borderRadius: BorderRadius.circular(18), child: SvgPicture.asset(f.$4, width: 52, height: 52, fit: BoxFit.cover)),
                     title: Text(f.$2, style: const TextStyle(color: ink, fontWeight: FontWeight.w800)),
                     subtitle: Text('${f.$1} · ${f.$3}', style: const TextStyle(color: muted)),
                     trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15, color: copper),
