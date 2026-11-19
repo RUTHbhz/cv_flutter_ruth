@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const ink = Color(0xFF0D1011);
@@ -169,7 +168,7 @@ class _TopBar extends StatelessWidget {
 
 Widget _page(String label, Widget child) => SafeArea(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Expanded(child: child)]));
 Widget _section(String title, Widget child) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(color: copper, fontSize: 11, letterSpacing: 1.8, fontWeight: FontWeight.w800)), const SizedBox(height: 12), child]);
-Widget _hero() => Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Container(width: 96, height: 96, decoration: BoxDecoration(color: copperLight, borderRadius: BorderRadius.circular(28)), child: const Center(child: Text('RB', style: TextStyle(color: ink, fontSize: 30, fontWeight: FontWeight.w900)))), const SizedBox(width: 18), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Ruth Bwiza Bahizi', style: TextStyle(color: ink, fontSize: 26, fontWeight: FontWeight.w800, letterSpacing: -1)), SizedBox(height: 6), Text('Étudiante en Génie Logiciel · ISIG Goma', style: TextStyle(color: muted, fontSize: 14, height: 1.3))]))]);
+Widget _hero() => Row(crossAxisAlignment: CrossAxisAlignment.center, children: [ClipRRect(borderRadius: BorderRadius.circular(28), child: Image.asset('assets/portraits/ruth-profile.jpeg', width: 96, height: 96, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(width: 96, height: 96, color: copperLight, alignment: Alignment.center, child: const Text('RB', style: TextStyle(color: ink, fontSize: 30, fontWeight: FontWeight.w900))))), const SizedBox(width: 18), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Ruth Bwiza Bahizi', style: TextStyle(color: ink, fontSize: 26, fontWeight: FontWeight.w800, letterSpacing: -1)), SizedBox(height: 6), Text('Étudiante en Génie Logiciel · ISIG Goma', style: TextStyle(color: muted, fontSize: 14, height: 1.3))]))]);
 
 class _IdentityCard extends StatelessWidget {
   const _IdentityCard();
@@ -209,10 +208,10 @@ class FamilyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final members = [
-      ('Maman', 'Marie Kabeya', 'Commerçante', 'assets/family/marie.svg', 'M'),
-      ('Papa', 'Jean Kabeya', 'Entrepreneur', 'assets/family/jean.svg', 'J'),
-      ('Sœur', 'Naomi Kabeya', 'Étudiante', 'assets/family/naomi.svg', 'N'),
-      ('Frère', 'David Kabeya', 'Ingénieur', 'assets/family/david.svg', 'D'),
+      ('Maman', 'KABERA', 'Commerçante', 'assets/portraits/family-mother.jpeg', 'K'),
+      ('Papa', 'BAHIZI', 'Enseignant', 'assets/portraits/family-father.jpeg', 'B'),
+      ('Sœur', 'BAKUNZI', 'Comptable', 'assets/portraits/family-sister.jpeg', 'B'),
+      ('Frère', 'NISHIMWE', 'Ingénieur', 'assets/portraits/family-brother.jpeg', 'N'),
     ];
     return _page(
       'MON CERCLE',
@@ -264,12 +263,11 @@ class _FamilyAvatar extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(18),
-      child: SvgPicture.asset(
+      child: Image.asset(
         asset,
         width: 52,
         height: 52,
         fit: BoxFit.cover,
-        placeholderBuilder: fallback,
         errorBuilder: (context, error, stackTrace) => fallback(context),
       ),
     );
