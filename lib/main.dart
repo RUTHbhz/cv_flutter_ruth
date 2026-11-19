@@ -164,6 +164,8 @@ class _TopBar extends StatelessWidget {
           ],
         ),
       );
+}
+
 Widget _page(String label, Widget child) => SafeArea(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Expanded(child: child)]));
 Widget _section(String title, Widget child) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(color: copper, fontSize: 11, letterSpacing: 1.8, fontWeight: FontWeight.w800)), const SizedBox(height: 12), child]);
 Widget _hero() => Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Container(width: 96, height: 96, decoration: BoxDecoration(color: copperLight, borderRadius: BorderRadius.circular(28)), child: const Center(child: Text('RB', style: TextStyle(color: ink, fontSize: 30, fontWeight: FontWeight.w900)))), const SizedBox(width: 18), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Ruth Bwiza Bahizi', style: TextStyle(color: ink, fontSize: 26, fontWeight: FontWeight.w800, letterSpacing: -1)), SizedBox(height: 6), Text('Étudiante en Génie Logiciel · ISIG Goma', style: TextStyle(color: muted, fontSize: 14, height: 1.3))]))]);
