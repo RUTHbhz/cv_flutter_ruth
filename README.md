@@ -9,7 +9,7 @@ Interface éditoriale, sobre et chaleureuse : encre `#0D1011`, papier `#F4F9FC` 
 ## Écrans
 
 ### Connexion
-![Écran de connexion](screenshots/01-login.svg)
+![Écran de connexion récent](screenshots/01-login-latest.png)
 
 ### Accueil / CV
 ![Écran Accueil récent](screenshots/02-accueil.png)

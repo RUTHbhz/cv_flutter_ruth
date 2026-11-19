@@ -73,6 +73,26 @@ def family_capture():
     image.save(OUT / "03-family.png")
 
 
+def login_capture():
+    image = canvas()
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle((26, 90, 78, 142), radius=17, fill=INK)
+    text(draw, (52, 116), "R", 26, COPPER_LIGHT, True, "mm")
+    text(draw, (26, 215), "Bienvenue.", 38, INK, True)
+    text(draw, (26, 252), "Découvrez mon univers professionnel", 16, MUTED)
+    text(draw, (26, 276), "et personnel.", 16, MUTED)
+    text(draw, (26, 333), "IDENTIFIANT", 11, MUTED, True)
+    draw.rounded_rectangle((26, 345, 364, 407), radius=16, fill="white")
+    text(draw, (64, 376), "Identifiant", 15, MUTED, False, "lm")
+    text(draw, (26, 445), "MOT DE PASSE", 11, MUTED, True)
+    draw.rounded_rectangle((26, 457, 364, 519), radius=16, fill="white")
+    text(draw, (64, 488), "••••••••", 15, MUTED, False, "lm")
+    draw.rounded_rectangle((26, 545, 364, 601), radius=16, fill=INK)
+    text(draw, (195, 573), "Se connecter", 16, PAPER, True, "mm")
+    text(draw, (195, 650), "CV personnel • Goma · RDC", 12, MUTED, False, "mm")
+    image.save(OUT / "01-login-latest.png")
+
+
 def accueil_capture():
     image = canvas()
     draw = ImageDraw.Draw(image)
@@ -102,5 +122,6 @@ def accueil_capture():
 
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
+    login_capture()
     accueil_capture()
     family_capture()
