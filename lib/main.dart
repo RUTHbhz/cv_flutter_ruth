@@ -226,6 +226,49 @@ class ContactPage extends StatelessWidget {
       ),
     );
   }
-  Widget _contact(BuildContext c, IconData icon, String label, String value, String? url) => InkWell(onTap: url == null ? null : () => launchUrl(Uri.parse(url)), child: Container(margin: const EdgeInsets.only(bottom: 12), padding: const EdgeInsets.all(17), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)), child: Row(children: [Icon(icon, color: copper), const SizedBox(width: 14), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(label.toUpperCase(), style: const TextStyle(color: muted, fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.w800)), const SizedBox(height: 4), Text(value, style: const TextStyle(color: ink, fontSize: 15, fontWeight: FontWeight.w700))]), const Spacer(), if (url != null) const Icon(Icons.open_in_new_rounded, size: 17, color: copper)])));
-  Widget _social(BuildContext c, String mark, String label, String url) => Expanded(child: InkWell(onTap: () => launchUrl(Uri.parse(url)), child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(16)), child: Column(children: [Text(mark, style: const TextStyle(color: copperLight, fontSize: 19, fontWeight: FontWeight.w900)), const SizedBox(height: 4), Text(label, style: const TextStyle(color: paper, fontSize: 12, fontWeight: FontWeight.w700))])));
+  Widget _contact(BuildContext c, IconData icon, String label, String value, String? url) {
+    return InkWell(
+      onTap: url == null ? null : () => launchUrl(Uri.parse(url)),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(17),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)),
+        child: Row(
+          children: [
+            Icon(icon, color: copper),
+            const SizedBox(width: 14),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label.toUpperCase(), style: const TextStyle(color: muted, fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.w800)),
+                const SizedBox(height: 4),
+                Text(value, style: const TextStyle(color: ink, fontSize: 15, fontWeight: FontWeight.w700)),
+              ],
+            ),
+            const Spacer(),
+            if (url != null) const Icon(Icons.open_in_new_rounded, size: 17, color: copper),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _social(BuildContext c, String mark, String label, String url) {
+    return Expanded(
+      child: InkWell(
+        onTap: () => launchUrl(Uri.parse(url)),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(16)),
+          child: Column(
+            children: [
+              Text(mark, style: const TextStyle(color: copperLight, fontSize: 19, fontWeight: FontWeight.w900)),
+              const SizedBox(height: 4),
+              Text(label, style: const TextStyle(color: paper, fontSize: 12, fontWeight: FontWeight.w700)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
