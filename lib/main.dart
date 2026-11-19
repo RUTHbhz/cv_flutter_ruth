@@ -253,21 +253,14 @@ class _FamilyAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget fallback(BuildContext context) => Container(
-          width: 52,
-          height: 52,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(color: copperLight, shape: BoxShape.circle),
-          child: Text(initials, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800)),
-        );
-
-    return ClipOval(
-      child: Image.asset(
-        asset,
-        width: 52,
-        height: 52,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) => fallback(context),
+    return SizedBox.square(
+      dimension: 52,
+      child: CircleAvatar(
+        radius: 26,
+        backgroundColor: copperLight,
+        foregroundImage: AssetImage(asset),
+        onForegroundImageError: (_, __) {},
+        child: Text(initials, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800)),
       ),
     );
   }
