@@ -27,4 +27,4 @@ flutter pub get
 flutter run
 ```
 
-Identifiant de démonstration : `ruth.kabeya` · mot de passe libre.
+Le champ identifiant affiche le placeholder « Identifiant » ; le mot de passe est masqué.

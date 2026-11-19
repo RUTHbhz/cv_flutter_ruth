@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
                 const Text('Découvrez mon univers professionnel\net personnel.', style: TextStyle(color: muted, fontSize: 16, height: 1.5)),
                 const SizedBox(height: 38),
-                _field('IDENTIFIANT', 'ruth.bahizi', user, Icons.person_outline),
+                _field('IDENTIFIANT', 'Identifiant', user, Icons.person_outline),
                 const SizedBox(height: 16),
                 TextField(controller: password, obscureText: hidden, decoration: _decoration('MOT DE PASSE', Icons.lock_outline).copyWith(suffixIcon: IconButton(onPressed: () => setState(() => hidden = !hidden), icon: Icon(hidden ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: muted)))),
                 const SizedBox(height: 26),
