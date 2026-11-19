@@ -12,10 +12,10 @@ Interface éditoriale, sobre et chaleureuse : encre `#0D1011`, papier `#F4F9FC` 
 ![Écran de connexion](screenshots/01-login.svg)
 
 ### Accueil / CV
-![Écran Accueil](screenshots/02-profile.svg)
+![Écran Accueil récent](screenshots/02-accueil.png)
 
 ### Famille
-![Écran famille](screenshots/03-family.svg)
+![Écran famille récent](screenshots/03-family.png)
 
 ### Contact
 ![Écran contact](screenshots/04-contact.svg)
