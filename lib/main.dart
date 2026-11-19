@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const ink = Color(0xFF0D1011);
+const paper = Color(0xFFF4F9FC);
+const copper = Color(0xFFC87843);
+const copperLight = Color(0xFFE3A06D);
+const muted = Color(0xFF718087);
+
+void main() => runApp(const CvApp());
+
+class CvApp extends StatelessWidget {
+  const CvApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Ruth — CV mobile',
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: paper,
+        colorScheme: ColorScheme.fromSeed(seedColor: copper, brightness: Brightness.light),
+        fontFamily: 'Arial',
+      ),
+      home: const LoginPage(),
+    );
+  }
+}
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final user = TextEditingController();
+  final password = TextEditingController();
+  bool hidden = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: LayoutBuilder(builder: (context, c) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(26),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: c.maxHeight - 52),
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const SizedBox(height: 44),
+                Container(width: 52, height: 52, alignment: Alignment.center, decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(17)), child: const Text('R', style: TextStyle(color: copperLight, fontSize: 26, fontWeight: FontWeight.w800))),
+                const SizedBox(height: 42),
+                const Text('Bienvenue.', style: TextStyle(color: ink, fontSize: 38, fontWeight: FontWeight.w800, letterSpacing: -1.2)),
+                const SizedBox(height: 10),
+                const Text('Découvrez mon univers professionnel\net personnel.', style: TextStyle(color: muted, fontSize: 16, height: 1.5)),
+                const SizedBox(height: 38),
+                _field('IDENTIFIANT', 'ruth.kabeya', user, Icons.person_outline),
+                const SizedBox(height: 16),
+                TextField(controller: password, obscureText: hidden, decoration: _decoration('MOT DE PASSE', Icons.lock_outline).copyWith(suffixIcon: IconButton(onPressed: () => setState(() => hidden = !hidden), icon: Icon(hidden ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: muted)))),
+                const SizedBox(height: 26),
+                SizedBox(width: double.infinity, height: 56, child: FilledButton(onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Shell())), style: FilledButton.styleFrom(backgroundColor: ink, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))), child: const Text('Se connecter', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)))),
+                const SizedBox(height: 24),
+                const Center(child: Text('Portfolio personnel • 2024', style: TextStyle(color: muted, fontSize: 12))),
+                const SizedBox(height: 26),
+              ]),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _field(String label, String hint, TextEditingController controller, IconData icon) => TextField(controller: controller, decoration: _decoration(label, icon).copyWith(hintText: hint));
+  InputDecoration _decoration(String label, IconData icon) => InputDecoration(labelText: label, labelStyle: const TextStyle(color: muted, fontSize: 11, letterSpacing: 1.2, fontWeight: FontWeight.w700), prefixIcon: Icon(icon, color: copper), filled: true, fillColor: Colors.white, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none), focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: copper, width: 1.5)));
+}
+
+class Shell extends StatefulWidget {
+  const Shell({super.key});
+  @override
+  State<Shell> createState() => _ShellState();
+}
+
+class _ShellState extends State<Shell> {
+  int index = 0;
+  final pages = const [HomePage(), FamilyPage(), ContactPage()];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: pages[index],
+      bottomNavigationBar: NavigationBar(selectedIndex: index, onDestinationSelected: (i) => setState(() => index = i), backgroundColor: Colors.white, indicatorColor: copper.withOpacity(.15), destinations: const [NavigationDestination(icon: Icon(Icons.grid_view_rounded), selectedIcon: Icon(Icons.grid_view_rounded, color: copper), label: 'Profil'), NavigationDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people, color: copper), label: 'Famille'), NavigationDestination(icon: Icon(Icons.alternate_email), selectedIcon: Icon(Icons.alternate_email, color: copper), label: 'Contact')]),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+  @override
+  Widget build(BuildContext context) => _page('MON PROFIL', SingleChildScrollView(padding: const EdgeInsets.fromLTRB(24, 22, 24, 30), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const _TopBar(), const SizedBox(height: 24), _hero(), const SizedBox(height: 34), _section('À PROPOS', const Text('Designer produit et développeuse mobile, je transforme des idées complexes en expériences simples, utiles et humaines.', style: TextStyle(color: ink, fontSize: 18, height: 1.45, fontWeight: FontWeight.w600))), const SizedBox(height: 30), _section('FORMATION & EXPÉRIENCE', Column(children: const [_TimelineItem(year: '2023 — aujourd’hui', title: 'Product designer & développeuse', place: 'Freelance · Johannesburg', active: true), _TimelineItem(year: '2022 — 2023', title: 'Stage UX / UI design', place: 'Studio créatif · Pretoria'), _TimelineItem(year: '2019 — 2022', title: 'Licence informatique', place: 'Université de Johannesburg')])), const SizedBox(height: 30), _section('COMPÉTENCES', Wrap(spacing: 8, runSpacing: 8, children: ['Flutter', 'Dart', 'Figma', 'UX Research', 'Firebase', 'Français · C1', 'Anglais · C1'].map((e) => Chip(label: Text(e), side: BorderSide.none, backgroundColor: Colors.white, labelStyle: const TextStyle(color: ink, fontWeight: FontWeight.w600))).toList())), const SizedBox(height: 30), _section('CENTRES D’INTÉRÊT', const Text('Photographie  •  Lecture  •  Randonnée  •  Musique', style: TextStyle(color: muted, fontSize: 15)))]));
+}
+
+class _TopBar extends StatelessWidget { const _TopBar(); @override Widget build(BuildContext context) => Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('RUTH K.', style: TextStyle(color: ink, fontWeight: FontWeight.w800, letterSpacing: 1.8)), Container(width: 42, height: 42, decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(14)), child: const Center(child: Text('RK', style: TextStyle(color: copperLight, fontWeight: FontWeight.w800))))]); }
+Widget _page(String label, Widget child) => SafeArea(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Padding(padding: const EdgeInsets.fromLTRB(24, 28, 24, 0), child: Text(label, style: const TextStyle(color: copper, fontSize: 11, letterSpacing: 2, fontWeight: FontWeight.w800))), Expanded(child: child)]));
+Widget _section(String title, Widget child) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(color: copper, fontSize: 11, letterSpacing: 1.8, fontWeight: FontWeight.w800)), const SizedBox(height: 12), child]);
+Widget _hero() => Row(crossAxisAlignment: CrossAxisAlignment.center, children: [Container(width: 96, height: 96, decoration: BoxDecoration(color: copperLight, borderRadius: BorderRadius.circular(28)), child: const Center(child: Text('RK', style: TextStyle(color: ink, fontSize: 30, fontWeight: FontWeight.w900)))), const SizedBox(width: 18), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Ruth Kabeya', style: TextStyle(color: ink, fontSize: 28, fontWeight: FontWeight.w800, letterSpacing: -1)), SizedBox(height: 6), Text('Product designer · Flutter developer', style: TextStyle(color: muted, fontSize: 14, height: 1.3))]))]);
+
+class _TimelineItem extends StatelessWidget { final String year, title, place; final bool active; const _TimelineItem({required this.year, required this.title, required this.place, this.active = false}); @override Widget build(BuildContext context) => Padding(padding: const EdgeInsets.only(bottom: 18), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [Container(width: 10, height: 10, margin: const EdgeInsets.only(top: 5, right: 14), decoration: BoxDecoration(color: active ? copper : copperLight, shape: BoxShape.circle)), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(year, style: const TextStyle(color: copper, fontSize: 12, fontWeight: FontWeight.w700)), const SizedBox(height: 3), Text(title, style: const TextStyle(color: ink, fontSize: 16, fontWeight: FontWeight.w700)), Text(place, style: const TextStyle(color: muted, fontSize: 13))]))])); }
+
+class FamilyPage extends StatelessWidget { const FamilyPage({super.key}); @override Widget build(BuildContext context) => _page('MON CERCLE', SingleChildScrollView(padding: const EdgeInsets.fromLTRB(24, 22, 24, 30), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const _TopBar(), const SizedBox(height: 26), const Text('Une famille,\nune force.', style: TextStyle(color: ink, fontSize: 34, fontWeight: FontWeight.w800, height: 1.1)), const SizedBox(height: 10), const Text('Les personnes qui m’inspirent au quotidien.', style: TextStyle(color: muted, fontSize: 15)), const SizedBox(height: 26), ...[('Maman', 'Marie Kabeya', 'Commerçante', 'M'), ('Papa', 'Jean Kabeya', 'Entrepreneur', 'J'), ('Sœur', 'Naomi Kabeya', 'Étudiante', 'N'), ('Frère', 'David Kabeya', 'Ingénieur', 'D')].map((f) => Card(margin: const EdgeInsets.only(bottom: 12), elevation: 0, color: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)), child: ListTile(contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7), leading: CircleAvatar(radius: 26, backgroundColor: copperLight, child: Text(f.$4, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800))), title: Text(f.$2, style: const TextStyle(color: ink, fontWeight: FontWeight.w800)), subtitle: Text('${f.$1} · ${f.$3}', style: const TextStyle(color: muted)), trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 15, color: copper))).toList())])); }
+
+class ContactPage extends StatelessWidget { const ContactPage({super.key}); @override Widget build(BuildContext context) => _page('ME CONTACTER', SingleChildScrollView(padding: const EdgeInsets.fromLTRB(24, 22, 24, 30), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const _TopBar(), const SizedBox(height: 30), const Text('Parlons de\nvos projets.', style: TextStyle(color: ink, fontSize: 34, fontWeight: FontWeight.w800, height: 1.1)), const SizedBox(height: 12), const Text('Une idée, une collaboration ou simplement envie d’échanger ? Ma boîte mail est ouverte.', style: TextStyle(color: muted, fontSize: 15, height: 1.4)), const SizedBox(height: 30), _contact(context, Icons.phone_outlined, 'Téléphone', '+27 71 234 5678', 'tel:+27712345678'), _contact(context, Icons.mail_outline, 'E-mail', 'ruth.kabeya@email.com', 'mailto:ruth.kabeya@email.com'), _contact(context, Icons.location_on_outlined, 'Adresse', 'Johannesburg, Afrique du Sud', null), const SizedBox(height: 28), _section('SUR LE WEB', Row(children: [_social(context, 'in', 'LinkedIn', 'https://linkedin.com'), const SizedBox(width: 12), _social(context, 'gh', 'GitHub', 'https://github.com')]))])); }
+  Widget _contact(BuildContext c, IconData icon, String label, String value, String? url) => InkWell(onTap: url == null ? null : () => launchUrl(Uri.parse(url)), child: Container(margin: const EdgeInsets.only(bottom: 12), padding: const EdgeInsets.all(17), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)), child: Row(children: [Icon(icon, color: copper), const SizedBox(width: 14), Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(label.toUpperCase(), style: const TextStyle(color: muted, fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.w800)), const SizedBox(height: 4), Text(value, style: const TextStyle(color: ink, fontSize: 15, fontWeight: FontWeight.w700))]), const Spacer(), if (url != null) const Icon(Icons.open_in_new_rounded, size: 17, color: copper)])));
+  Widget _social(BuildContext c, String mark, String label, String url) => Expanded(child: InkWell(onTap: () => launchUrl(Uri.parse(url)), child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: ink, borderRadius: BorderRadius.circular(16)), child: Column(children: [Text(mark, style: const TextStyle(color: copperLight, fontSize: 19, fontWeight: FontWeight.w900)), const SizedBox(height: 4), Text(label, style: const TextStyle(color: paper, fontSize: 12, fontWeight: FontWeight.w700))])));
+}
