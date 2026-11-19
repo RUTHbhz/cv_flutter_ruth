@@ -257,12 +257,11 @@ class _FamilyAvatar extends StatelessWidget {
           width: 52,
           height: 52,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: copperLight, borderRadius: BorderRadius.circular(18)),
+          decoration: const BoxDecoration(color: copperLight, shape: BoxShape.circle),
           child: Text(initials, style: const TextStyle(color: ink, fontSize: 20, fontWeight: FontWeight.w800)),
         );
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(18),
+    return ClipOval(
       child: Image.asset(
         asset,
         width: 52,
