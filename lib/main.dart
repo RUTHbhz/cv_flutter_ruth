@@ -85,28 +85,28 @@ class Shell extends StatefulWidget {
 
 class _ShellState extends State<Shell> {
   int index = 0;
-  final pages = const [HomePage(), FamilyPage(), ContactPage()];
+  final pages = const [AccueilPage(), FamilyPage(), ContactPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[index],
-      bottomNavigationBar: NavigationBar(selectedIndex: index, onDestinationSelected: (i) => setState(() => index = i), backgroundColor: Colors.white, indicatorColor: copper.withOpacity(.15), destinations: const [NavigationDestination(icon: Icon(Icons.grid_view_rounded), selectedIcon: Icon(Icons.grid_view_rounded, color: copper), label: 'Profil'), NavigationDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people, color: copper), label: 'Famille'), NavigationDestination(icon: Icon(Icons.alternate_email), selectedIcon: Icon(Icons.alternate_email, color: copper), label: 'Contact')]),
+      bottomNavigationBar: NavigationBar(selectedIndex: index, onDestinationSelected: (i) => setState(() => index = i), backgroundColor: Colors.white, indicatorColor: copper.withOpacity(.15), destinations: const [NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded, color: copper), label: 'Accueil'), NavigationDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people, color: copper), label: 'Famille'), NavigationDestination(icon: Icon(Icons.alternate_email), selectedIcon: Icon(Icons.alternate_email, color: copper), label: 'Contact')]),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class AccueilPage extends StatelessWidget {
+  const AccueilPage({super.key});
   @override
   Widget build(BuildContext context) {
     return _page(
-      'MON PROFIL',
+      'ACCUEIL',
       SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(24, 22, 24, 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _TopBar(title: 'MON PROFIL'),
+            const _TopBar(title: 'ACCUEIL'),
             const SizedBox(height: 24),
             _hero(),
             const SizedBox(height: 34),
